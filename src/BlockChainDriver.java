@@ -45,6 +45,7 @@ public class BlockChainDriver {
 
             printChain(blockChain);
         }
+        
     }
 
     private static void printHelp() {

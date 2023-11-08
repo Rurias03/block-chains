@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 public class BlockChain {
     private Node first; // Pointer to the first block in the chain
     private Node last; // Pointer to the last block in the chain
@@ -25,7 +26,7 @@ public class BlockChain {
 
     // Mine a new block and add it to the chain
     public Block mine(int amount) {
-        // Implement logic to mine a new block and add it to the end of the chain
+        return new Block(last.block.getNum(), amount, last.block.getHash());
     }
 
     // Get the size of the blockchain
@@ -41,8 +42,9 @@ public class BlockChain {
 
     // Append a block to the blockchain
     public void append(Block blk) {
-        // Implement logic to add a block to the end of the chain
-        // Throw IllegalArgumentException if the block cannot be added
+       Node newnode = new Node(blk, null);
+        last.next = newnode;
+        last = newnode;
     }
 
     // Remove the last block from the chain
@@ -71,7 +73,7 @@ public class BlockChain {
 
     // Get the hash of the last block in the chain
     public Hash getHash() {
-        // Implement logic to return the hash of the last block in the chain
+        return last.block.getHash();
     }
 
     // Check if the blockchain is valid
@@ -100,7 +102,13 @@ public class BlockChain {
 
     // Print balances of Alexis and Blake
     public void printBalances() {
-        // Implement logic to print Alexis's and Blake's balances
+        PrintWriter pen = new PrintWriter(System.out, true);
+        int Alexis = first.block.getAmount();
+        int Blake = 0;
+
+            //code to traverse chain and update totals at each block
+
+    pen.println("Alexis : " + Alexis + " Blake : " + Blake);
     }
 
     // String representation of the blockchain
