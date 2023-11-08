@@ -15,6 +15,11 @@ public class Hash {
 
     // Check if the hash is valid
     public boolean isValid() {
+        boolean check = true;
+        for(int i = 0; i < 4; i++){
+            check = check == (data[i] == 0);
+        }
+        return check;
         // Implement the logic to check if the first three indices contain zeroes
         // Hint: You can use a loop to iterate through the first three indices of the data array
     }
@@ -27,6 +32,7 @@ public class Hash {
 
     // Check if this hash is equal to another hash
     public boolean equals(Object other) {
+        if( ) 
         // Implement the logic to check equality using Arrays.equals
         // Make sure to check if 'other' is an instance of Hash before casting
     }
