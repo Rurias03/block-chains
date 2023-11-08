@@ -62,14 +62,13 @@ public class Block {
                 amount, nonce, prevHash.toString(), hash.toString());
     }
 
-    public static byte[] calculateHash(int num, int anount, Hash prevHash, long nonce)
-            {
-                MessageDigest md;
-                    try{
-                        md = MessageDigest.getInstance("sha-256");
-                    }catch(NoSuchAlgorithmException e){
-                        return null;
-                    }
+    public static byte[] calculateHash(int num, int anount, Hash prevHash, long nonce) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("sha-256");
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
 
 
         return null;
@@ -81,8 +80,8 @@ public class Block {
         boolean done = false;
         while (!done) {
             newnonce++;
-           Hash temphash = new Hash (calculateHash(num, amount, prevHash, newnonce));
-           done = temphash.isValid();
+            Hash temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
+            done = temphash.isValid();
         }
         return nonce;
     }
