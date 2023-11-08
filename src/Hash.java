@@ -31,7 +31,12 @@ public class Hash {
 
     // Check if this hash is equal to another hash
     public boolean equals(Object other) {
-        // Implement the logic to check equality using Arrays.equals
-        // Make sure to check if 'other' is an instance of Hash before casting
+        if (this == other)
+            return true;
+        if (other == null || getClass() != other.getClass())
+            return false;
+
+        Hash otherHash = (Hash) other;
+        return Arrays.equals(data, otherHash.data);
     }
 }
