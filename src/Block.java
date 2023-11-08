@@ -54,8 +54,8 @@ public class Block {
     // String representation of the block
     @Override
     public String toString() {
-        // Implement the logic to format the block as a string
-        // Use the provided format in the assignment description
+        return String.format("Block %d (Amount: %d, Nonce: %d, prevHash: %s, hash: %s)", num,
+                amount, nonce, prevHash.toString(), hash.toString());
     }
 
     // Helper method for mining a block (you can call this method from the mining constructor)

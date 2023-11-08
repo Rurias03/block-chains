@@ -16,7 +16,7 @@ public class Hash {
     // Check if the hash is valid
     public boolean isValid() {
         boolean check = true;
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             check = check == (data[i] == 0);
         }
         return check;
@@ -25,6 +25,7 @@ public class Hash {
     }
 
     // String representation of the hash as a string of hexadecimal digits
+    @Override
     public String toString() {
         // Convert each byte to a hexadecimal string and concatenate them
         StringBuilder stringBuilder = new StringBuilder();
@@ -38,9 +39,9 @@ public class Hash {
     public boolean equals(Object other) {
         if (other == null || getClass() != other.getClass())
             return false;
-        else{
-                Hash oHash = (Hash) other;
-                return (Arrays.equals(oHash.data , this.data));
-            }
+        else {
+            Hash oHash = (Hash) other;
+            return (Arrays.equals(oHash.data, this.data));
+        }
     }
 }
