@@ -63,11 +63,13 @@ public class Block {
     }
 
     public static byte[] calculateHash(int num, int anount, Hash prevHash, long nonce)
-            throws NoSuchAlgorithmException {
+            {
+                    try{
         MessageDigest md = MessageDigest.getInstance("sha-256");
-        md.update(msg.getBytes());
-        byte[] hash = md.digest();
-        return hash;
+                    }catch(NoSuchAlgorithmException e){
+                        return null;
+                    }
+        return null;
     } // calculateHash(String)
 
     // Helper method for mining a block (you can call this method from the mining constructor)
@@ -76,10 +78,9 @@ public class Block {
         boolean done = false;
         while (!done) {
             newnonce++;
-           Hash hash = new Hash (calculateHash(num, amount, prevHash, newnonce));
-            done = hash.isValid();
+           Hash temphash = new Hash (calculateHash(num, amount, prevHash, newnonce));
+           done = temphash.isValid();
         }
         return nonce;
     }
-}
 }
