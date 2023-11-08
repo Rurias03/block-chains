@@ -21,8 +21,12 @@ public class Hash {
 
     // String representation of the hash as a string of hexadecimal digits
     public String toString() {
-        // Implement the logic to convert the byte array to a hexadecimal string
-        // You can use Byte.toUnsignedInt and String.format for this
+        // Convert each byte to a hexadecimal string and concatenate them
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b : data) {
+            stringBuilder.append(String.format("%02x", b));
+        }
+        return stringBuilder.toString();
     }
 
     // Check if this hash is equal to another hash
