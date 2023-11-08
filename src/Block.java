@@ -13,17 +13,17 @@ public class Block {
     public Block(int num, int amount, Hash prevHash) {
         this.num = num;
         this.amount = amount;
-        this.nonce = ;
         this.prevHash = prevHash;
-        this.hash = ;
-        // Implement the mining operation to discover the nonce and compute the hash
-        // Use the MessageDigest class and ByteBuffer for this
+        mineBlock();
     }
 
     // Constructor with provided nonce (no need to mine)
     public Block(int num, int amount, Hash prevHash, long nonce) {
-        // Implement logic to directly compute the hash using the provided nonce
-        // Use the MessageDigest class and ByteBuffer for this
+        this.num = num;
+        this.amount = amount;
+        this.prevHash = prevHash;
+        this.nonce = nonce;
+        computeHash();
     }
 
     // Getter for block number
