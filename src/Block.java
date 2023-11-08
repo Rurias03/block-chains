@@ -15,7 +15,7 @@ public class Block {
         this.amount = amount;
         this.nonce = mineBlock();
         this.prevHash = prevHash;
-        this.hash = calculateHash();
+        this.hash = new Hash(calculateHash(num, amount, prevHash, nonce));
         // Implement the mining operation to discover the nonce and compute the hash
         // Use the MessageDigest class and ByteBuffer for this
     }
@@ -27,7 +27,7 @@ public class Block {
         this.amount = amount;
         this.prevHash = prevHash;
         this.nonce = nonce;
-        computeHash();
+        this.hash = new Hash(calculateHash(num, amount, prevHash, nonce));
     }
 
     // Getter for block number
@@ -62,7 +62,7 @@ public class Block {
                 amount, nonce, prevHash.toString(), hash.toString());
     }
 
-    public static byte[] calculateHash(int num, int anount, Byte[] prevHash, long nonce)
+    public static byte[] calculateHash(int num, int anount, Hash prevHash, long nonce)
             throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("sha-256");
         md.update(msg.getBytes());
@@ -72,26 +72,14 @@ public class Block {
 
     // Helper method for mining a block (you can call this method from the mining constructor)
     private long mineBlock() {
-        long nonce = 0;
-        boolean done = false;
-        while(!done)
-        {
-      nonce++;
-      hash = calculateHash(num, amount, prevHash, nonce);
-        // Implement the mining logic here
-        // Use MessageDigest and ByteBuffer to update the hash with relevant block information
-        // Search the space of nonces by iterating over all possible long values
-    }
-
-    // Helper method for mining a block (you can call this method from the mining constructor)
-    private long mineBlock() {
-        long nonce = 0;
+        long newnonce = 0;
         boolean done = false;
         while (!done) {
-            nonce++;
-            hash = calculateHash();
+            newnonce++;
+           Hash hash = new Hash (calculateHash(num, amount, prevHash, newnonce));
             done = hash.isValid();
         }
         return nonce;
     }
+}
 }
