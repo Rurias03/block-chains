@@ -10,14 +10,13 @@ public class Block {
     private Hash prevHash;
     private Hash hash;
 
+    // Constructor for mining the block
     public Block(int num, int amount, Hash prevHash) {
         this.num = num;
         this.amount = amount;
         this.nonce = mineBlock();
         this.prevHash = prevHash;
         this.hash = new Hash(calculateHash(num, amount, prevHash, nonce));
-        // Implement the mining operation to discover the nonce and compute the hash
-        // Use the MessageDigest class and ByteBuffer for this
     }
 
 
