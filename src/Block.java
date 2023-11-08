@@ -66,9 +66,13 @@ public class Block {
             {
                     try{
         MessageDigest md = MessageDigest.getInstance("sha-256");
+<<<<<<< Updated upstream
                     }catch(NoSuchAlgorithmException e){
                         return null;
                     }
+=======
+
+>>>>>>> Stashed changes
         return null;
     } // calculateHash(String)
 
@@ -78,8 +82,18 @@ public class Block {
         boolean done = false;
         while (!done) {
             newnonce++;
+<<<<<<< Updated upstream
            Hash temphash = new Hash (calculateHash(num, amount, prevHash, newnonce));
            done = temphash.isValid();
+=======
+            Hash hash;
+            try {
+                tmphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
+            } catch (NoSuchAlgorithmException e) {
+                return -1;
+            }
+            done = hash.isValid();
+>>>>>>> Stashed changes
         }
         return nonce;
     }
