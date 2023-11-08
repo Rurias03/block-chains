@@ -62,7 +62,7 @@ public class Block {
                 amount, nonce, prevHash.toString(), hash.toString());
     }
 
-public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
+public static byte[] calculateHash(int num, int anount, Byte[] prevHash, long nonce) throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance("sha-256");
     md.update(msg.getBytes());
     byte[] hash = md.digest();
@@ -71,10 +71,12 @@ public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
 
     // Helper method for mining a block (you can call this method from the mining constructor)
     private long mineBlock() {
-        long nonce;
-    
-      nonce = rand.nextLong();
-      hash = computeHash(num, amount, prevHash, nonce);
+        long nonce = 0;
+        boolean done = false;
+        while(!done)
+        {
+      nonce++;
+      hash = calculateHash(num, amount, prevHash, nonce);
         // Implement the mining logic here
         // Use MessageDigest and ByteBuffer to update the hash with relevant block information
         // Search the space of nonces by iterating over all possible long values
