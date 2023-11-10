@@ -103,15 +103,32 @@ public class BlockChain {
         }
         return true;
     }
-
+    public int currentBalance(){
+        int balance = first.block.getAmount();
+        Node current = this.first;
+        for(int i = 0; i < this.getSize(); i++){
+            int transfer = current.block.getAmount();
+            if (transfer >= 0){
+                balance -= transfer;
+            }else{
+                balance += transfer;
+            }
+        }  
+        return balance;
+    }//currentBalance
     // Print balances of Alexis and Blake
     public void printBalances() {
         PrintWriter pen = new PrintWriter(System.out, true);
-        int Alexis = first.block.getAmount();
+        int Alexis = this.currentBalance();
         int Blake = 0;
-
-            //code to traverse chain and update totals at each block
-
+        Node current = this.first;
+        for(int i = 0; i < this.getSize(); i++){
+            int transfer = current.block.getAmount();
+            if (transfer < 0){
+                Blake -= transfer;
+            }
+            current = current.next;
+        }
     pen.println("Alexis : " + Alexis + " Blake : " + Blake);
     }
 

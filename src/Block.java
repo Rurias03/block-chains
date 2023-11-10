@@ -16,6 +16,7 @@ public class Block {
         this.amount = amount;
         this.prevHash = prevHash;
         mineBlock(); 
+        System.out.println(" MinedBlock num: " + num+ " amount: " + amount + " prevHash: " + prevHash + " nonce: " + nonce);
     }
 
 
@@ -25,6 +26,7 @@ public class Block {
         this.amount = amount;
         this.prevHash = prevHash;
         this.nonce = nonce;
+        System.out.println(" num: " + num+ " amount: " + amount + " prevHash: " + prevHash + " nonce: " + nonce);
         this.hash = new Hash(calculateHash(num, amount, prevHash, nonce));
     }
 
@@ -87,8 +89,8 @@ public class Block {
         Hash temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
         //Add a way to eliminate already used nonces
         while (!done) {
-            temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
             newnonce++;
+            temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
             done = temphash.isValid();
         }
         this.hash = temphash;

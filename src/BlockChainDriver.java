@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.PrintWriter;
-import java.security.Permission;
 public class BlockChainDriver {
     public static void main(String[] args) {
         if (args.length != 1) {
@@ -70,8 +69,12 @@ public class BlockChainDriver {
         pen.println();
         String stringamnt = eye.nextLine();
         int amnt = Integer.valueOf(stringamnt);
+        if(blockChain.currentBalance() + amnt < 0){
+            pen.println("amount of transfer too much for current balance. Current balance: " + blockChain.currentBalance());
+        }else{
         long nonce = blockChain.mine(amnt);
         pen.println("Valid nonce: " + nonce);
+        }
     }
 
     private static void appendBlock(BlockChain blockChain, PrintWriter pen, Scanner eye) {
@@ -79,11 +82,15 @@ public class BlockChainDriver {
         pen.println();
         String stringamnt = eye.nextLine();
         int amnt = Integer.valueOf(stringamnt);
-        pen.println("Please input nonce");
-        pen.println();
-        String strnonce = eye.nextLine();
-        long nonce = Integer.valueOf(strnonce);
-        blockChain.append(new Block(blockChain.getSize(), amnt, blockChain.getHash(), nonce));
+        if(blockChain.currentBalance() + amnt < 0){
+            pen.println("amount of transfer too much for current balance. Current balance: " + blockChain.currentBalance());
+        } else {
+            pen.println("Please input nonce");
+            pen.println();
+            String strnonce = eye.nextLine();
+            long nonce = Integer.valueOf(strnonce);
+            blockChain.append(new Block(blockChain.getSize(), amnt, blockChain.getHash(), nonce));
+        }
     }
 
     private static void removeBlock(BlockChain blockChain) {
