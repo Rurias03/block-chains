@@ -104,15 +104,12 @@ public class BlockChain {
         return true;
     }
     public int currentBalance(){
-        int balance = first.block.getAmount();
+        int balance = 0;
         Node current = this.first;
         for(int i = 0; i < this.getSize(); i++){
             int transfer = current.block.getAmount();
-            if (transfer >= 0){
-                balance -= transfer;
-            }else{
                 balance += transfer;
-            }
+            current = current.next;
         }  
         return balance;
     }//currentBalance
