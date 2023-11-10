@@ -14,8 +14,8 @@ public class Block {
     public Block(int num, int amount, Hash prevHash) {
         this.num = num;
         this.amount = amount;
-        this.nonce = mineBlock();
         this.prevHash = prevHash;
+        this.nonce = mineBlock(); 
         this.hash = new Hash(calculateHash(num, amount, prevHash, nonce));
     }
 
@@ -61,22 +61,32 @@ public class Block {
                 amount, nonce, prevHash.toString(), hash.toString());
     }
 
-    public static byte[] calculateHash(int num, int anount, Hash prevHash, long nonce) {
+    public static byte[] calculateHash(int num, int amount, Hash prevHash, long nonce) {
         MessageDigest md;
+        byte[] digest = new byte[1000];
+        ByteBuffer byteinfo = ByteBuffer.allocate(1000);
         try {
             md = MessageDigest.getInstance("sha-256");
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
+        byteinfo.putInt(num);
+        byteinfo.putInt(amount);
+        byteinfo.put(prevHash.getData());
+        System.out.println(nonce);
+        digest = byteinfo.putLong(nonce).array(); 
 
+        md.update(digest);
+        digest = md.digest();
 
-        return null;
+        return digest;
     } // calculateHash(String)
 
     // Helper method for mining a block (you can call this method from the mining constructor)
     private long mineBlock() {
         long newnonce = 0;
         boolean done = false;
+        //Add a way to eliminate already used nonces
         while (!done) {
             newnonce++;
             Hash temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
