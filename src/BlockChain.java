@@ -24,11 +24,13 @@ public class BlockChain {
         last = first;
     }
 
-    // Mine a new block and add it to the chain
-    public Block mine(int amount) {
+    // Mine a new nonce for a given transaction
+    public long mine(int amount) {
+        long newnonce;
         Block blok = new Block(last.block.getNum() + 1, amount, last.block.getHash());
-        this.append(blok);
-        return blok;
+        System.out.println("Mined Block: " + blok);
+        newnonce = blok.getNonce();
+        return newnonce;
     }
 
     // Get the size of the blockchain
@@ -113,6 +115,10 @@ public class BlockChain {
     pen.println("Alexis : " + Alexis + " Blake : " + Blake);
     }
 
+    public void printLast(){
+        System.out.println(this.last.toString());
+    }//printLast
+
     // String representation of the blockchain
     @Override
     public String toString() {
@@ -126,5 +132,5 @@ public class BlockChain {
             current = current.next;
         }
         return stringBuilder.toString();
-    }
+    }//toString
 }

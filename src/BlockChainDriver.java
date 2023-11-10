@@ -1,5 +1,6 @@
 import java.util.Scanner;
-
+import java.io.PrintWriter;
+import java.security.Permission;
 public class BlockChainDriver {
     public static void main(String[] args) {
         if (args.length != 1) {
@@ -9,27 +10,28 @@ public class BlockChainDriver {
 
         int initialAmount = Integer.parseInt(args[0]);
         BlockChain blockChain = new BlockChain(initialAmount);
-        Scanner scanner = new Scanner(System.in);
+        Scanner eye = new Scanner(System.in);
+        PrintWriter pen = new PrintWriter(System.out, true);
 
-        System.out.println("Command? help");
+        System.out.println("Initial Block:");
         printChain(blockChain);
-
+        printHelp();
         while (true) {
             System.out.print("Command? ");
-            String command = scanner.nextLine();
+            String command = eye.nextLine();
 
             switch (command) {
                 case "mine":
-                    mineBlock(blockChain);
+                    mine(blockChain, pen, eye);
                     break;
                 case "append":
-                    appendBlock(blockChain);
+                    appendBlock(blockChain, pen, eye);
                     break;
                 case "remove":
                     removeBlock(blockChain);
                     break;
                 case "check":
-                    checkValidity(blockChain);
+                    checkValidity(blockChain, pen);
                     break;
                 case "report":
                     reportBalances(blockChain);
@@ -63,28 +65,41 @@ public class BlockChainDriver {
         System.out.println(blockChain);
     }
 
-    private static void mineBlock(BlockChain blockChain) {
-        // Implement the logic for mining a block and updating the blockchain
-        // You'll need to prompt the user for the amount and print the resulting block
+    private static void mine(BlockChain blockChain, PrintWriter pen, Scanner eye) {
+        pen.println("Please input amount for transaction");
+        pen.println();
+        String stringamnt = eye.nextLine();
+        int amnt = Integer.valueOf(stringamnt);
+        long nonce = blockChain.mine(amnt);
+        pen.println("Valid nonce: " + nonce);
     }
 
-    private static void appendBlock(BlockChain blockChain) {
-        // Implement the logic for appending a block and updating the blockchain
-        // You'll need to prompt the user for the amount and nonce, then print the resulting block
+    private static void appendBlock(BlockChain blockChain, PrintWriter pen, Scanner eye) {
+        pen.println("Please input amount of transaction");
+        pen.println();
+        String stringamnt = eye.nextLine();
+        int amnt = Integer.valueOf(stringamnt);
+        pen.println("Please input nonce");
+        pen.println();
+        String strnonce = eye.nextLine();
+        long nonce = Integer.valueOf(strnonce);
+        blockChain.append(new Block(blockChain.getSize(), amnt, blockChain.getHash(), nonce));
     }
 
     private static void removeBlock(BlockChain blockChain) {
-        // Implement the logic for removing the last block from the blockchain
-        // Print the updated blockchain after removal
+        blockChain.removeLast();
+        System.out.println(blockChain.toString());
     }
 
-    private static void checkValidity(BlockChain blockChain) {
-        // Implement the logic for checking the validity of the blockchain
-        // Print whether the chain is valid or not
+    private static void checkValidity(BlockChain blockChain, PrintWriter pen) {
+        if(blockChain.isValidBlockChain()){
+            pen.println("Chain is Valid");
+        } else{
+            pen.println("Chain is not Valid");
+        }
     }
 
     private static void reportBalances(BlockChain blockChain) {
-        // Implement the logic for reporting the balances of Alexis and Blake
-        // Print the balances
+        blockChain.printBalances();
     }
 }
