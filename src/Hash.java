@@ -16,12 +16,11 @@ public class Hash {
     // Check if the hash is valid
     public boolean isValid() {
         boolean check = true;
-        for (int i = 0; i < 4; i++) {
-            check = check == (data[i] == 0);
+        for (int i = 0; i < 3; i++) {
+            if(data[i] != 0)
+            check = false;
         }
         return check;
-        // Implement the logic to check if the first three indices contain zeroes
-        // Hint: You can use a loop to iterate through the first three indices of the data array
     }
 
     // String representation of the hash as a string of hexadecimal digits

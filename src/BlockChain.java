@@ -26,7 +26,9 @@ public class BlockChain {
 
     // Mine a new block and add it to the chain
     public Block mine(int amount) {
-        return new Block(last.block.getNum(), amount, last.block.getHash());
+        Block blok = new Block(last.block.getNum() + 1, amount, last.block.getHash());
+        this.append(blok);
+        return blok;
     }
 
     // Get the size of the blockchain

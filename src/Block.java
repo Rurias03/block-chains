@@ -15,8 +15,7 @@ public class Block {
         this.num = num;
         this.amount = amount;
         this.prevHash = prevHash;
-        this.nonce = mineBlock(); 
-        this.hash = new Hash(calculateHash(num, amount, prevHash, nonce));
+        mineBlock(); 
     }
 
 
@@ -73,7 +72,6 @@ public class Block {
         byteinfo.putInt(num);
         byteinfo.putInt(amount);
         byteinfo.put(prevHash.getData());
-        System.out.println(nonce);
         digest = byteinfo.putLong(nonce).array(); 
 
         md.update(digest);
@@ -83,15 +81,17 @@ public class Block {
     } // calculateHash(String)
 
     // Helper method for mining a block (you can call this method from the mining constructor)
-    private long mineBlock() {
+    private void mineBlock() {
         long newnonce = 0;
         boolean done = false;
+        Hash temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
         //Add a way to eliminate already used nonces
         while (!done) {
+            temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
             newnonce++;
-            Hash temphash = new Hash(calculateHash(num, amount, prevHash, newnonce));
             done = temphash.isValid();
         }
-        return nonce;
+        this.hash = temphash;
+        this.nonce = newnonce;
     }
 }
